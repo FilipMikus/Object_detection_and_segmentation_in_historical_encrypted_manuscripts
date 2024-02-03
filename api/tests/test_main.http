@@ -1,1 +1,16 @@
 # Test your FastAPI endpoints
+POST http://127.0.0.1:8000/yolo_v8/digits
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="file"; filename="test_img.jpg"
+
+< ./test_img.jpg
+
+--WebAppBoundary
+Content-Disposition: form-data; name="data"
+
+data_name
+--WebAppBoundary--
+
+###
