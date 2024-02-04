@@ -1,0 +1,7 @@
+fastapi~=0.109.1
+ultralytics~=8.1.9
+pillow~=10.2.0
+PyYAML~=6.0.1
+supervision~=0.18.0
+pandas~=2.2.0
+numpy~=1.26.3
