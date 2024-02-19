@@ -1,0 +1,10 @@
+# Idea
+.idea/
+
+# VS code
+.settings/
+.classpath
+.project
+
+# Mac OS
+.DS_Store
