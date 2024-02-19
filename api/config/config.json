@@ -1,0 +1,12 @@
+{
+  "name": "VEGA Historical Object Detection and Segmentation API",
+  "version": "1.0.0",
+  "host": "127.0.0.1",
+  "port": 8000,
+  "yolo_v8_digits_source": "../resources/weights/yolo_v8_digits.pt",
+  "yolo_v8_glyphs_source": "../resources/weights/yolo_v8_glyphs.pt",
+  "yolo_v8_explorer_source": "../resources/weights/yolo_v8_explorer.pt",
+  "rt_detr_digits_source": "../resources/weights/rt_detr_digits.pt",
+  "rt_detr_glyphs_source": "../resources/weights/rt_detr_glyphs.pt",
+  "fast_sam_source": "../resources/weights/FastSAM-s.pt"
+}
