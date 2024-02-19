@@ -1,16 +1,107 @@
-# Test your FastAPI endpoints
-POST http://127.0.0.1:8000/yolo_v8/digits
+###
+POST http://127.0.0.1:8000/yolo_v8/digits/
 Content-Type: multipart/form-data; boundary=WebAppBoundary
 
 --WebAppBoundary
-Content-Disposition: form-data; name="file"; filename="test_img.jpg"
+Content-Disposition: form-data; name="image_file"; filename="digits_test_img.jpg"
 
-< ./test_img.jpg
+< ./resources/digits_test_img.jpg
 
 --WebAppBoundary
-Content-Disposition: form-data; name="data"
+Content-Disposition: form-data; name="confidence_parameter"
 
-data_name
+0.5
+--WebAppBoundary--
+Content-Disposition: form-data; name="iou_parameter"
+
+0.7
+--WebAppBoundary--
+Content-Disposition: form-data; name="image_size_parameter"
+
+640
+--WebAppBoundary--
+
+###
+POST http://127.0.0.1:8000/yolo_v8/glyphs/
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="image_file"; filename="glyphs_test_img.jpg"
+
+< ./resources/glyphs_test_img.jpg
+
+--WebAppBoundary
+
+###
+POST http://127.0.0.1:8000/rt_detr/digits/
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="image_file"; filename="digits_test_img.jpg"
+
+< ./resources/glyphs_test_img.jpg
+
+--WebAppBoundary
+
+###
+POST http://127.0.0.1:8000/rt_detr/glyphs/
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="image_file"; filename="glyphs_test_img.jpg"
+
+< ./resources/glyphs_test_img.jpg
+
+--WebAppBoundary
+
+###
+POST http://127.0.0.1:8000/sam/
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="image_file"; filename="digits_test_img.jpg"
+
+< ./resources/digits_test_img.jpg
+
+--WebAppBoundary
+
+###
+POST http://127.0.0.1:8000/data/explorer/similarity/
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="image_file"; filename="digits_test_img.jpg"
+
+< ./resources/digits_test_img.jpg
+
+--WebAppBoundary
+Content-Disposition: form-data; name="dataset_file"; filename="test_yolo_dataset.zip"
+
+< ./resources/test_yolo_dataset.zip
+
+--WebAppBoundary--
+Content-Disposition: form-data; name="split_parameter"
+
+train
+--WebAppBoundary--
+
+###
+POST http://127.0.0.1:8000/data/explorer/query/
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="dataset_file"; filename="test_yolo_dataset.zip"
+
+< ./resources/test_yolo_dataset.zip
+
+--WebAppBoundary
+Content-Disposition: form-data; name="query_parameter"
+
+SELECT * FROM 'table' WHERE labels LIKE '%0%' AND labels LIKE '%1%' AND labels LIKE '%6%' AND labels LIKE '%9%'
+--WebAppBoundary--
+Content-Disposition: form-data; name="split_parameter"
+
+train
 --WebAppBoundary--
 
 ###
