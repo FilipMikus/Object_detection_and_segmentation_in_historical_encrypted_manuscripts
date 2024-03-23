@@ -1,13 +1,11 @@
 from typing import Annotated
 
-import numpy as np
-from fastapi import APIRouter, File, UploadFile, Form, HTTPException
-from PIL import Image
-import io
+from fastapi import APIRouter, File, UploadFile, Form
 
 from api.app.model.model import DetectionsModel
 from api.app.service.yolo_v8_service import YOLOv8Service
 from api.app.utils.app_config import AppConfig
+from api.app.utils.utils import validate_file_type, image_bytes_to_array
 
 app_config = AppConfig()
 yolo_v8_router = APIRouter(prefix="/yolo_v8", tags=["yolo_v8"])
@@ -20,12 +18,9 @@ async def yolo_v8_digits(
         iou_parameter: Annotated[float, Form] = Form(0.7),
         image_size_parameter: Annotated[int, Form] = Form(640)
 ) -> DetectionsModel:
-    if image_file.filename.rsplit('.', 1)[1].lower() not in ["jpeg", "png", "jpg"]:
-        raise HTTPException(status_code=400, detail="Invalid image file type")
+    validate_file_type(file=image_file, valid_extensions=["jpeg", "png", "jpg"])
 
-    image_bytes = await image_file.read()
-    image = Image.open(io.BytesIO(image_bytes))
-    image_array = np.asarray(image)
+    image_array = await image_bytes_to_array(image_file)
 
     service = YOLOv8Service(model_path=app_config.yolo_v8_digits_source)
     detections = service.predict(
@@ -37,10 +32,10 @@ async def yolo_v8_digits(
 
     return DetectionsModel(
         xyxy=detections.xyxy.tolist(),
-        mask=detections.mask.tolist(),
+        mask=detections.mask.tolist() if detections.mask is not None else detections.mask,
         confidence=detections.confidence.tolist(),
         class_id=detections.class_id.tolist(),
-        class_name_mapping={}
+        class_name=detections.data["class_name"]
     )
 
 
@@ -51,14 +46,11 @@ async def yolo_v8_glyphs(
         iou_parameter: Annotated[float, Form] = Form(0.7),
         image_size_parameter: Annotated[int, Form] = Form(640)
 ) -> DetectionsModel:
-    if image_file.filename.rsplit('.', 1)[1].lower() not in ["jpeg", "png", "jpg"]:
-        raise HTTPException(status_code=400, detail="Invalid image file type")
+    validate_file_type(file=image_file, valid_extensions=["jpeg", "png", "jpg"])
 
-    image_bytes = await image_file.read()
-    image = Image.open(io.BytesIO(image_bytes))
-    image_array = np.asarray(image)
+    image_array = await image_bytes_to_array(image_file)
 
-    service = YOLOv8Service(model_path=app_config.yolo_v8_digits_source)
+    service = YOLOv8Service(model_path=app_config.yolo_v8_glyphs_source)
     detections = service.predict(
         image=image_array,
         confidence=confidence_parameter,
@@ -68,8 +60,8 @@ async def yolo_v8_glyphs(
 
     return DetectionsModel(
         xyxy=detections.xyxy.tolist(),
-        mask=detections.mask.tolist(),
+        mask=detections.mask.tolist() if detections.mask is not None else detections.mask,
         confidence=detections.confidence.tolist(),
         class_id=detections.class_id.tolist(),
-        class_name_mapping={}
+        class_name=detections.data["class_name"]
     )

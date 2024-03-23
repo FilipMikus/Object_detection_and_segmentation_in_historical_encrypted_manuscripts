@@ -1,13 +1,11 @@
 from typing import Annotated
 
-import numpy as np
-from fastapi import APIRouter, File, UploadFile, Form, HTTPException
-from PIL import Image
-import io
+from fastapi import APIRouter, File, UploadFile, Form
 
 from api.app.model.model import DetectionsModel
 from api.app.service.fast_sam_service import FastSAMService
 from api.app.utils.app_config import AppConfig
+from api.app.utils.utils import validate_file_type, image_bytes_to_array
 
 app_config = AppConfig()
 sam_router = APIRouter(prefix="/sam", tags=["sam"])
@@ -20,12 +18,9 @@ async def sam(
         iou_parameter: Annotated[float, Form] = Form(0.7),
         image_size_parameter: Annotated[int, Form] = Form(640)
 ) -> DetectionsModel:
-    if image_file.filename.rsplit('.', 1)[1].lower() not in ["jpeg", "png", "jpg"]:
-        raise HTTPException(status_code=400, detail="Invalid image file type")
+    validate_file_type(file=image_file, valid_extensions=["jpeg", "png", "jpg"])
 
-    image_bytes = await image_file.read()
-    image = Image.open(io.BytesIO(image_bytes))
-    image_array = np.asarray(image)
+    image_array = await image_bytes_to_array(image_file)
 
     service = FastSAMService(model_path=app_config.fast_sam_source)
     detections = service.predict(

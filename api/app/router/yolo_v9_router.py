@@ -3,16 +3,16 @@ from typing import Annotated
 from fastapi import APIRouter, File, UploadFile, Form
 
 from api.app.model.model import DetectionsModel
-from api.app.service.rt_detr_service import RTDETRService
+from api.app.service.yolo_v9_service import YOLOv9Service
 from api.app.utils.app_config import AppConfig
 from api.app.utils.utils import validate_file_type, image_bytes_to_array
 
 app_config = AppConfig()
-rt_detr_router = APIRouter(prefix="/rt_detr", tags=["rt_detr"])
+yolo_v9_router = APIRouter(prefix="/yolo_v9", tags=["yolo_v9"])
 
 
-@rt_detr_router.post("/digits/")
-async def rt_detr_digits(
+@yolo_v9_router.post("/digits/")
+async def yolo_v9_digits(
         image_file: Annotated[UploadFile, File()],
         confidence_parameter: Annotated[float, Form] = Form(0.25),
         iou_parameter: Annotated[float, Form] = Form(0.7),
@@ -22,7 +22,7 @@ async def rt_detr_digits(
 
     image_array = await image_bytes_to_array(image_file)
 
-    service = RTDETRService(model_path=app_config.rt_detr_digits_source)
+    service = YOLOv9Service(model_path=app_config.yolo_v9_digits_source)
     detections = service.predict(
         image=image_array,
         confidence=confidence_parameter,
@@ -39,8 +39,8 @@ async def rt_detr_digits(
     )
 
 
-@rt_detr_router.post("/glyphs/")
-async def rt_detr_glyphs(
+@yolo_v9_router.post("/glyphs/")
+async def yolo_v9_glyphs(
         image_file: Annotated[UploadFile, File()],
         confidence_parameter: Annotated[float, Form] = Form(0.25),
         iou_parameter: Annotated[float, Form] = Form(0.7),
@@ -50,7 +50,7 @@ async def rt_detr_glyphs(
 
     image_array = await image_bytes_to_array(image_file)
 
-    service = RTDETRService(model_path=app_config.rt_detr_glyphs_source)
+    service = YOLOv9Service(model_path=app_config.yolo_v9_glyphs_source)
     detections = service.predict(
         image=image_array,
         confidence=confidence_parameter,

@@ -4,15 +4,13 @@ from typing import Annotated, Literal
 from zipfile import ZipFile
 
 import aiofiles
-import numpy as np
-from PIL import Image
-from fastapi import APIRouter, File, UploadFile, Form, HTTPException
-import io
+from fastapi import APIRouter, File, UploadFile, Form
 
 from api.app.model.model import ExplorationsModel
 from api.app.service.data_explorer_service import DataExplorerService
 from api.app.utils.app_config import AppConfig
-from api.app.utils.utils import transform_explorer_dataframe_to_exploration_model
+from api.app.utils.utils import transform_explorer_dataframe_to_exploration_model, validate_file_type, \
+    image_bytes_to_array
 
 app_config = AppConfig()
 data_explorer_router = APIRouter(prefix="/data/explorer", tags=["data_explorer"])
@@ -24,10 +22,8 @@ async def data_explorer_similarity(
         dataset_file: Annotated[UploadFile, File()],
         split_parameter: Annotated[Literal["train", "test", "valid"], Form] = Form("train")
 ) -> ExplorationsModel:
-    if image_file.filename.rsplit('.', 1)[1].lower() not in ["jpeg", "png", "jpg"]:
-        raise HTTPException(status_code=400, detail="Invalid image file type")
-    elif dataset_file.filename.rsplit('.', 1)[1].lower() not in ["zip"]:
-        raise HTTPException(status_code=400, detail="Invalid zipped dataset file type")
+    validate_file_type(file=image_file, valid_extensions=["jpeg", "png", "jpg"])
+    validate_file_type(file=dataset_file, valid_extensions=["zip"])
 
     with TemporaryDirectory() as temp_dir:
         async with aiofiles.open(os.path.join(temp_dir, dataset_file.filename), "wb") as zipped_temp_file:
@@ -35,9 +31,7 @@ async def data_explorer_similarity(
             with ZipFile(os.path.join(temp_dir, dataset_file.filename), "r") as zip_file:
                 zip_file.extractall(temp_dir)
 
-                image_bytes = await image_file.read()
-                image = Image.open(io.BytesIO(image_bytes))
-                image_array = np.asarray(image)
+                image_array = await image_bytes_to_array(image_file)
 
                 service = DataExplorerService(
                     dataset_yaml_path=os.path.join(temp_dir, "test_yolo_dataset", "data.yaml"),
@@ -57,8 +51,7 @@ async def data_explorer_query(
         query_parameter: Annotated[str, Form()],
         split_parameter: Annotated[Literal["train", "test", "valid"], Form] = Form("train")
 ) -> ExplorationsModel:
-    if dataset_file.filename.rsplit('.', 1)[1].lower() not in ["zip"]:
-        raise HTTPException(status_code=400, detail="Invalid zipped dataset file type")
+    validate_file_type(file=dataset_file, valid_extensions=["zip"])
 
     with TemporaryDirectory() as temp_dir:
         async with aiofiles.open(os.path.join(temp_dir, dataset_file.filename), "wb") as zipped_temp_file:
@@ -84,8 +77,7 @@ async def data_explorer_prompt(
         prompt_parameter: Annotated[str, Form()],
         split_parameter: Annotated[Literal["train", "test", "valid"], Form] = Form("train")
 ) -> ExplorationsModel:
-    if dataset_file.filename.rsplit('.', 1)[1].lower() not in ["zip"]:
-        raise HTTPException(status_code=400, detail="Invalid zipped dataset file type")
+    validate_file_type(file=dataset_file, valid_extensions=["zip"])
 
     raise NotImplementedError("This endpoint is not implemented yet")
 
