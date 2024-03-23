@@ -10,6 +10,8 @@ class AppConfig:
     port: int = 8000
     yolo_v8_digits_source: str = "../resources/weights/yolo_v8_digits.pt"
     yolo_v8_glyphs_source: str = "../resources/weights/yolo_v8_glyphs.pt"
+    yolo_v9_digits_source: str = "../resources/weights/yolo_v8_digits.pt"
+    yolo_v9_glyphs_source: str = "../resources/weights/yolo_v8_glyphs.pt"
     yolo_v8_explorer_source: str = "../resources/weights/yolo_v8_explorer.pt"
     rt_detr_digits_source: str = "../resources/weights/rt_detr_digits.pt"
     rt_detr_glyphs_source: str = "../resources/weights/rt_detr_glyphs.pt"
@@ -28,6 +30,8 @@ class AppConfig:
                     cls.port = config_data["port"]
                     cls.yolo_v8_digits_source = config_data["yolo_v8_digits_source"]
                     cls.yolo_v8_glyphs_source = config_data["yolo_v8_glyphs_source"]
+                    cls.yolo_v9_digits_source = config_data["yolo_v9_digits_source"]
+                    cls.yolo_v9_glyphs_source = config_data["yolo_v9_glyphs_source"]
                     cls.yolo_v8_explorer_source = config_data["yolo_v8_explorer_source"]
                     cls.rt_detr_digits_source = config_data["rt_detr_digits_source"]
                     cls.rt_detr_glyphs_source = config_data["rt_detr_glyphs_source"]

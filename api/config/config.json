@@ -5,6 +5,8 @@
   "port": 8000,
   "yolo_v8_digits_source": "../resources/weights/yolo_v8_digits.pt",
   "yolo_v8_glyphs_source": "../resources/weights/yolo_v8_glyphs.pt",
+  "yolo_v9_digits_source": "../resources/weights/yolo_v9_digits.pt",
+  "yolo_v9_glyphs_source": "../resources/weights/yolo_v9_glyphs.pt",
   "yolo_v8_explorer_source": "../resources/weights/yolo_v8_explorer.pt",
   "rt_detr_digits_source": "../resources/weights/rt_detr_digits.pt",
   "rt_detr_glyphs_source": "../resources/weights/rt_detr_glyphs.pt",
