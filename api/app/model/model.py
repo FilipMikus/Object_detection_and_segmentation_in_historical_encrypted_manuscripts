@@ -1,4 +1,4 @@
-from typing import Optional, Dict, List
+from typing import Optional, List
 
 from pydantic import BaseModel
 
@@ -8,7 +8,7 @@ class DetectionsModel(BaseModel):
     mask: Optional[List] = None
     confidence: Optional[List] = None
     class_id: Optional[List] = None
-    class_name_mapping: Optional[Dict[str, str]] = None
+    class_name: Optional[List] = None
 
 
 class ExplorationsModel(BaseModel):

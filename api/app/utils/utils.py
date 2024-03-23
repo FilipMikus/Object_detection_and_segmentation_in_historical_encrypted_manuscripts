@@ -39,7 +39,7 @@ def transform_explorer_dataframe_to_exploration_model(
 ) -> ExplorationsModel:
     return ExplorationsModel(
         split=split,
-        image_file=np_array_to_list(explorer_df["im_file"].to_numpy()),
+        image_file=[file_path.rsplit('/', 1)[1] for file_path in np_array_to_list(explorer_df["im_file"].to_numpy())],
         vector=np_array_to_list(explorer_df["vector"].to_numpy()),
         class_id=np_array_to_list(explorer_df["cls"].to_numpy()),
         class_name=np_array_to_list(explorer_df["labels"].to_numpy()),

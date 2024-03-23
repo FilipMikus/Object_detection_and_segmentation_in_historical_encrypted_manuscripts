@@ -7,7 +7,6 @@ from supervision import Detections
 
 
 class SAHIModelService(ABC):
-
     model_path: Union[str, Path]
     model: Any
 

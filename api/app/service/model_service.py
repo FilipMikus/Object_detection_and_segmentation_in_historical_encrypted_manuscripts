@@ -1,14 +1,12 @@
-from pathlib import Path
-from typing import Optional, Tuple, Union, Any
-
 from abc import ABC, abstractmethod
+from pathlib import Path
+from typing import Union, Any
 
 import numpy as np
 from supervision.detection.core import Detections
 
 
 class ModelService(ABC):
-
     model_path: Union[str, Path]
     model: Any
 

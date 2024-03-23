@@ -8,7 +8,7 @@ from ultralytics import YOLO
 from api.app.service.model_service import ModelService
 
 
-class YOLOv8Service(ModelService):
+class YOLOv9Service(ModelService):
 
     def __init__(self, model_path: Union[str, Path]):
         super().__init__(model_path)
