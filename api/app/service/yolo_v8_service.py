@@ -1,6 +1,3 @@
-from pathlib import Path
-from typing import Union
-
 import numpy as np
 from supervision import Detections
 from ultralytics import YOLO
@@ -10,7 +7,7 @@ from api.app.service.model_service import ModelService
 
 class YOLOv8Service(ModelService):
 
-    def __init__(self, model_path: Union[str, Path]):
+    def __init__(self, model_path: str):
         super().__init__(model_path)
         self.model = YOLO(model=self.model_path)
 

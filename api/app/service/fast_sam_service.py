@@ -1,6 +1,3 @@
-from pathlib import Path
-from typing import Union
-
 from supervision import Detections
 from ultralytics import FastSAM
 
@@ -9,7 +6,7 @@ from api.app.service.model_service import ModelService
 
 class FastSAMService(ModelService):
 
-    def __init__(self, model_path: Union[str, Path]):
+    def __init__(self, model_path: str):
         super().__init__(model_path)
         self.model = FastSAM(model=self.model_path)
 

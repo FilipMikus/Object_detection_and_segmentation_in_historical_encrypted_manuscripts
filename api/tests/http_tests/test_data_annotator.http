@@ -1,0 +1,23 @@
+###
+POST http://127.0.0.1:8000/data/annotator/digits/
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="dataset_images_file"; filename="test_digits_images.zip"
+
+< ../resources/test_digits_images.zip
+
+--WebAppBoundary--
+
+###
+POST http://127.0.0.1:8000/data/annotator/glyphs/
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="dataset_images_file"; filename="test_digits_images.zip"
+
+< ../resources/test_digits_images.zip
+
+--WebAppBoundary--
+
+###

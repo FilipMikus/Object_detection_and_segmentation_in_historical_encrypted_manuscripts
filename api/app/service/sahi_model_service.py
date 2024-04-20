@@ -1,16 +1,15 @@
 from abc import abstractmethod, ABC
-from pathlib import Path
-from typing import Union, Tuple, Any
+from typing import Tuple, Any
 
 import numpy as np
 from supervision import Detections
 
 
 class SAHIModelService(ABC):
-    model_path: Union[str, Path]
+    model_path: str
     model: Any
 
-    def __init__(self, model_path: Union[str, Path]):
+    def __init__(self, model_path: str):
         self.model_path = model_path
 
     @abstractmethod

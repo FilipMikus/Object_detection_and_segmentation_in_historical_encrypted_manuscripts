@@ -1,16 +1,15 @@
 from abc import ABC, abstractmethod
-from pathlib import Path
-from typing import Union, Any
+from typing import Any
 
 import numpy as np
 from supervision.detection.core import Detections
 
 
 class ModelService(ABC):
-    model_path: Union[str, Path]
+    model_path: str
     model: Any
 
-    def __init__(self, model_path: Union[str, Path]):
+    def __init__(self, model_path: str):
         self.model_path = model_path
 
     @abstractmethod

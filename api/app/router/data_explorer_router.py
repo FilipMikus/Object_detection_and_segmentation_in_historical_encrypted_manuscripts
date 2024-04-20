@@ -34,7 +34,7 @@ async def data_explorer_similarity(
                 image_array = await image_bytes_to_array(image_file)
 
                 service = DataExplorerService(
-                    dataset_yaml_path=os.path.join(temp_dir, "test_yolo_dataset", "data.yaml"),
+                    dataset_yaml_path=os.path.join(temp_dir, os.path.splitext(dataset_file.filename)[0], "data.yaml"),
                     model_path=app_config.yolo_v8_explorer_source
                 )
                 explorer_df = service.explore_by_similarity(
@@ -60,7 +60,7 @@ async def data_explorer_query(
                 zip_file.extractall(temp_dir)
 
                 service = DataExplorerService(
-                    dataset_yaml_path=os.path.join(temp_dir, "test_yolo_dataset", "data.yaml"),
+                    dataset_yaml_path=os.path.join(temp_dir, os.path.splitext(dataset_file.filename)[0], "data.yaml"),
                     model_path=app_config.yolo_v8_explorer_source
                 )
                 explorer_df = service.explore_by_query(
@@ -88,7 +88,7 @@ async def data_explorer_prompt(
                 zip_file.extractall(temp_dir)
 
                 service = DataExplorerService(
-                    dataset_yaml_path=os.path.join(temp_dir, "test_yolo_dataset", "data.yaml"),
+                    dataset_yaml_path=os.path.join(temp_dir, os.path.splitext(dataset_file.filename)[0], "data.yaml"),
                     model_path=app_config.yolo_v8_explorer_source
                 )
                 explorer_df = service.explore_by_prompt(

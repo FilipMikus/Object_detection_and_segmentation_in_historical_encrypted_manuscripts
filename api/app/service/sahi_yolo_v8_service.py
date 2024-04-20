@@ -1,5 +1,4 @@
-from pathlib import Path
-from typing import Union, Tuple
+from typing import Tuple
 
 import numpy as np
 from supervision import Detections, InferenceSlicer
@@ -10,7 +9,7 @@ from api.app.service.sahi_model_service import SAHIModelService
 
 class SAHIYOLOv8Service(SAHIModelService):
 
-    def __init__(self, model_path: Union[str, Path]):
+    def __init__(self, model_path: str):
         super().__init__(model_path)
         self.model = YOLO(model=self.model_path)
 
