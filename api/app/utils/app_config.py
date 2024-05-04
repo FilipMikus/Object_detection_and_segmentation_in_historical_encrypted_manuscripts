@@ -18,9 +18,9 @@ class AppConfig:
     yolo_v8_annotator_glyphs_source: str = "../resources/weights/yolo_v8_glyphs.pt"
     rt_detr_digits_source: str = "../resources/weights/rt_detr_digits.pt"
     rt_detr_glyphs_source: str = "../resources/weights/rt_detr_glyphs.pt"
-    yolo_v8_explorer_source: str = "../resources/weights/yolov8n.pt"
-    fast_sam_source: str = "../resources/weights/FastSAM-s.pt"
-    sam_annotator_source: str = "../resources/weights/mobile_sam.pt"
+    yolo_v8_explorer_source: str = "yolov8n.pt"
+    fast_sam_source: str = "FastSAM-s.pt"
+    sam_annotator_source: str = "mobile_sam.pt"
 
     def __new__(cls, *args, **kwargs):
         if cls._instance is None:

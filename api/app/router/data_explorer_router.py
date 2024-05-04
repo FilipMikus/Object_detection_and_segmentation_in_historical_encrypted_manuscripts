@@ -20,7 +20,7 @@ data_explorer_router = APIRouter(prefix="/data/explorer", tags=["data_explorer"]
 async def data_explorer_similarity(
         image_file: Annotated[UploadFile, File()],
         dataset_file: Annotated[UploadFile, File()],
-        split_parameter: Annotated[Literal["train", "test", "valid"], Form] = Form("train")
+        split_parameter: Annotated[Literal["train", "test", "val"], Form] = Form("train")
 ) -> ExplorationsModel:
     validate_file_type(file=image_file, valid_extensions=["jpeg", "png", "jpg"])
     validate_file_type(file=dataset_file, valid_extensions=["zip"])
@@ -49,7 +49,7 @@ async def data_explorer_similarity(
 async def data_explorer_query(
         dataset_file: Annotated[UploadFile, File()],
         query_parameter: Annotated[str, Form()],
-        split_parameter: Annotated[Literal["train", "test", "valid"], Form] = Form("train")
+        split_parameter: Annotated[Literal["train", "test", "val"], Form] = Form("train")
 ) -> ExplorationsModel:
     validate_file_type(file=dataset_file, valid_extensions=["zip"])
 
@@ -75,7 +75,7 @@ async def data_explorer_query(
 async def data_explorer_prompt(
         dataset_file: Annotated[UploadFile, File()],
         prompt_parameter: Annotated[str, Form()],
-        split_parameter: Annotated[Literal["train", "test", "valid"], Form] = Form("train")
+        split_parameter: Annotated[Literal["train", "test", "val"], Form] = Form("train")
 ) -> ExplorationsModel:
     validate_file_type(file=dataset_file, valid_extensions=["zip"])
 

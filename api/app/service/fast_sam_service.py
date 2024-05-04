@@ -1,7 +1,7 @@
 from supervision import Detections
 from ultralytics import FastSAM
 
-from api.app.service.model_service import ModelService
+from api.app.service.base.model_service import ModelService
 
 
 class FastSAMService(ModelService):

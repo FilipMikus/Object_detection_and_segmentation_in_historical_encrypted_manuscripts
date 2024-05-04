@@ -1,9 +1,8 @@
-import io
-from typing import Union, Literal
+from typing import Union, Literal, Any
 
+import cv2
 import numpy as np
 import pandas as pd
-from PIL import Image
 from fastapi import UploadFile, File, HTTPException
 from supervision import Detections
 
@@ -11,9 +10,9 @@ from api.app.model.model import DetectionsModel, ExplorationsModel
 
 
 async def image_bytes_to_array(image_file: Union[UploadFile, File]) -> np.ndarray:
-    image_bytes = await image_file.read()
-    image = Image.open(io.BytesIO(image_bytes))
-    image_array = np.asarray(image)
+    contents = await image_file.read()
+    image_array = np.fromstring(contents, np.uint8)
+    image_array = cv2.imdecode(image_array, cv2.IMREAD_UNCHANGED)
     return image_array
 
 
@@ -24,12 +23,11 @@ def validate_file_type(file: Union[UploadFile, File], valid_extensions: list[str
 
 def transform_detections_to_detections_model(detections: Detections) -> DetectionsModel:
     return DetectionsModel(
-        xyxy=np_array_to_list(detections.xyxy),
-        mask=np_array_to_list(detections.mask),
-        confidence=np_array_to_list(detections.confidence),
-        class_id=np_array_to_list(detections.class_id),
-        # TODO
-        class_name_mapping={}
+        xyxy=detections.xyxy.tolist(),
+        mask=detections.mask.tolist() if detections.mask is not None else detections.mask,
+        confidence=detections.confidence.tolist(),
+        class_id=detections.class_id.tolist(),
+        class_name=detections.data["class_name"]
     )
 
 
@@ -49,7 +47,7 @@ def transform_explorer_dataframe_to_exploration_model(
     )
 
 
-def np_array_to_list(array: np.ndarray) -> list:
+def np_array_to_list(array: np.ndarray) -> Any:
     if isinstance(array, np.ndarray):
         return np_array_to_list(array.tolist())
     elif isinstance(array, list):
@@ -58,3 +56,12 @@ def np_array_to_list(array: np.ndarray) -> list:
         return tuple(np_array_to_list(item) for item in array)
     else:
         return array
+
+
+def transform_detections_to_xyxy_class_id_class_name_tuple(detections: Detections) -> list[tuple]:
+    return [
+        (
+            detections.xyxy[i][0], detections.xyxy[i][1], detections.xyxy[i][2], detections.xyxy[i][3],
+            detections.class_id[i], (detections.data["class_name"])[i]
+        ) for i in range(len(detections.xyxy))
+    ]

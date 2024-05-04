@@ -4,7 +4,7 @@ import numpy as np
 from supervision import Detections, InferenceSlicer
 from ultralytics import YOLO
 
-from api.app.service.sahi_model_service import SAHIModelService
+from api.app.service.base.sahi_model_service import SAHIModelService
 
 
 class SAHIYOLOv8Service(SAHIModelService):

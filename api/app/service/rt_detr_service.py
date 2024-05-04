@@ -2,7 +2,7 @@ import numpy as np
 from supervision import Detections
 from ultralytics import RTDETR
 
-from api.app.service.model_service import ModelService
+from api.app.service.base.model_service import ModelService
 
 
 class RTDETRService(ModelService):

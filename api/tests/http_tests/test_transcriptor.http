@@ -1,0 +1,97 @@
+###
+POST http://127.0.0.1:8000/transcriptor/yolo_v8/digits/
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="image_file"; filename="digits_crop_test_img.jpg"
+
+< ../resources/digits_crop_test_img.jpg
+
+--WebAppBoundary
+Content-Disposition: form-data; name="image_size_parameter"
+
+640
+--WebAppBoundary--
+Content-Disposition: form-data; name="number_of_lines_parameter"
+
+4
+--WebAppBoundary--
+###
+POST http://127.0.0.1:8000/transcriptor/yolo_v8/glyphs/
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="image_file"; filename="glyphs_crop_test_img.jpg"
+
+< ../resources/glyphs_crop_test_img.jpg
+
+--WebAppBoundary
+Content-Disposition: form-data; name="image_size_parameter"
+
+640
+--WebAppBoundary--
+Content-Disposition: form-data; name="number_of_lines_parameter"
+
+3
+--WebAppBoundary--
+###
+POST http://127.0.0.1:8000/transcriptor/sahi/yolo_v8/digits/
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="image_file"; filename="digits_test_img.jpg"
+
+< ../resources/digits_test_img.jpg
+
+--WebAppBoundary
+Content-Disposition: form-data; name="slice_size_width_parameter"
+
+160
+--WebAppBoundary--
+Content-Disposition: form-data; name="slice_size_height_parameter"
+
+160
+--WebAppBoundary--
+Content-Disposition: form-data; name="slice_overlap_ratio_width_parameter"
+
+0.3
+--WebAppBoundary--
+Content-Disposition: form-data; name="slice_overlap_ratio_height_parameter"
+
+0.3
+--WebAppBoundary--
+Content-Disposition: form-data; name="number_of_lines_parameter"
+
+17
+--WebAppBoundary--
+###
+POST http://127.0.0.1:8000/transcriptor/sahi/yolo_v8/glyphs/
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="image_file"; filename="glyphs_test_img.jpg"
+
+< ../resources/glyphs_test_img.jpg
+
+--WebAppBoundary
+Content-Disposition: form-data; name="slice_size_width_parameter"
+
+160
+--WebAppBoundary--
+Content-Disposition: form-data; name="slice_size_height_parameter"
+
+160
+--WebAppBoundary--
+Content-Disposition: form-data; name="slice_overlap_ratio_width_parameter"
+
+0.3
+--WebAppBoundary--
+Content-Disposition: form-data; name="slice_overlap_ratio_height_parameter"
+
+0.3
+--WebAppBoundary--
+Content-Disposition: form-data; name="number_of_lines_parameter"
+
+17
+--WebAppBoundary--
+###

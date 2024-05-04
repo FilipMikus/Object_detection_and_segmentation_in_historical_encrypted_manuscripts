@@ -11,9 +11,9 @@
   "yolo_world_v2_glyphs_source": "../resources/weights/yolo_world_v2_glyphs.pt",
   "yolo_v8_annotator_digits_source": "../resources/weights/yolo_v8_digits.pt",
   "yolo_v8_annotator_glyphs_source": "../resources/weights/yolo_v8_glyphs.pt",
-  "yolo_v8_explorer_source": "../resources/weights/yolov8n.pt",
+  "yolo_v8_explorer_source": "yolov8n.pt",
   "rt_detr_digits_source": "../resources/weights/rt_detr_digits.pt",
   "rt_detr_glyphs_source": "../resources/weights/rt_detr_glyphs.pt",
-  "sam_annotator_source": "../resources/weights/mobile_sam.pt",
-  "fast_sam_source": "../resources/weights/FastSAM-s.pt"
+  "sam_annotator_source": "mobile_sam.pt",
+  "fast_sam_source": "FastSAM-s.pt"
 }
