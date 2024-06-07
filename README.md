@@ -5,7 +5,7 @@ Slovak University of Technology in Bratislava - Faculty of Electrical Engineerin
 ## Abstract
 **Study Programme:** Applied Informatics
 
-**Author:** Bc. Filip Mikuš
+**Author:** Ing. Filip Mikuš
 
 **Master’s thesis:** Object detection and segmentation in historical encrypted manuscripts
 
@@ -30,7 +30,7 @@ Slovenská technická univerzita v Bratislave - Fakulta elektrotechniky a inform
 ## Súhrn
 **Študíjny program:** Aplikovaná informatika
 
-**Autor:** Bc. Filip Mikuš
+**Autor:** Ing. Filip Mikuš
 
 **Diplomová práca:** Detekcia a segmentácia objektov v historických šifrovaných rukopisoch
 
